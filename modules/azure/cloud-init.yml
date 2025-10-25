@@ -1,0 +1,32 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - apache2
+  - mysql-client
+  - curl
+  - wget
+
+write_files:
+  - path: /var/www/html/index.html
+    content: |
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Welcome to ${project_name}</title>
+      </head>
+      <body>
+          <h1>Welcome to ${project_name}</h1>
+          <p>Environment: ${environment}</p>
+          <p>Database Endpoint: ${db_endpoint}</p>
+          <p>Instance ID: $(curl -s http://169.254.169.254/metadata/instance/compute/vmId?api-version=2017-08-01&format=text)</p>
+          <p>Location: $(curl -s http://169.254.169.254/metadata/instance/compute/location?api-version=2017-08-01&format=text)</p>
+      </body>
+      </html>
+    permissions: '0644'
+
+runcmd:
+  - systemctl enable apache2
+  - systemctl start apache2
+  - systemctl restart apache2

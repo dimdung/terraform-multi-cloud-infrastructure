@@ -1,0 +1,42 @@
+# AWS Development Environment Configuration
+
+# Project Configuration
+project_name = "my-aws-project"
+environment  = "dev"
+
+# AWS Configuration
+aws_region = "us-east-1"
+
+# Networking
+vpc_cidr             = "10.0.0.0/16"
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.10.0/24", "10.0.20.0/24"]
+availability_zones    = ["us-east-1a", "us-east-1b"]
+
+# Compute
+instance_type    = "t3.micro"
+ami_id          = "ami-0c02fb55956c7d316" # Amazon Linux 2
+min_size        = 1
+max_size        = 3
+desired_capacity = 2
+
+# Database
+db_instance_class           = "db.t3.micro"
+db_allocated_storage        = 20
+db_max_allocated_storage    = 100
+db_name                     = "appdb"
+db_username                 = "admin"
+db_password                 = "your-secure-password"
+db_backup_retention_period  = 7
+
+# Logging
+log_retention_days = 30
+
+# Tags
+tags = {
+  Environment = "dev"
+  Project     = "my-aws-project"
+  ManagedBy   = "terraform"
+  Owner       = "infrastructure-team"
+  CostCenter  = "engineering"
+}
